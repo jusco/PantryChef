@@ -58,6 +58,7 @@ Account</a></h2>
         <td><input name="password2" type="password" /></td>
         <td><input value="Submit" type="submit" /></td>
       </tr>
+      <tr><td><a href="login.jsp">Return to Login Page</a></td></tr>
     </tbody>
   </table>
 </form>
@@ -101,7 +102,13 @@ Account</a></h2>
 			//create connection and statement
 			connection = DriverManager.getConnection("jdbc:oracle:thin:@//fling.seas.upenn.edu:1521/cisora","CIS330GB","oW4gD8fW");
 			Statement statement = connection.createStatement();
-		    String query = "INSERT INTO Account(username,password,numofingredients) Values(\'" + user + "\',\'" +pass + "\',\'0\')";
+			//Hash password
+			int total = 0;
+			char [] pass3 = pass.toCharArray();
+			for(int i=0; i<pass3.length;i++){
+				total= total + ((Character)pass3[i]).hashCode();
+			}
+		    String query = "INSERT INTO Account(username,password,numofingredients) Values(\'" + user + "\',"+ ((Integer)total).toString() + ",\'0\')";
 		    statement.executeUpdate(query);							
 		   response.sendRedirect("login.jsp");
 			} catch (Exception e) {
@@ -139,5 +146,4 @@ Account</a></h2>
 </div>
 <!-- end #page --></div>
 </body>
-
 </html>

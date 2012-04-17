@@ -51,7 +51,7 @@ show you how</p>
         <td>Password:</td>
         <td><input name="password" type="password" /></td>
         <td><input value="Submit" type="submit" /></td>
-        <td><a href="createuser.jsp">Create a login</a></td>
+        <td><a href="create.jsp">Create a login</a></td>
       </tr>
     </tbody>
   </table>

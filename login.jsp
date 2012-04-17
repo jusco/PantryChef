@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.io.*" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -61,6 +62,7 @@ show you how</p>
 String user = request.getParameter("username");
 String pass = request.getParameter("password");
 response.setContentType("text/html");
+
 if(user == null) {
 	return;
 }
@@ -75,8 +77,14 @@ try {
 	//create connection and statement
 	connection = DriverManager.getConnection("jdbc:oracle:thin:@//fling.seas.upenn.edu:1521/cisora","CIS330GB","oW4gD8fW");
 	Statement statement = connection.createStatement();
+	//Hash password
+	int total = 0;
+	char [] pass2 = pass.toCharArray();
+	for(int i=0; i<pass2.length;i++){
+		total= total + ((Character)pass2[i]).hashCode();
+	}
 	
-    String query = "SELECT username FROM Account WHERE username=\'" + user + "\' AND password =\'" + pass + "\'";
+    String query = "SELECT username FROM Account WHERE username=\'" + user + "\' AND password =" + ((Integer)total).toString();
     ResultSet rs = statement.executeQuery(query);
    
     if(!rs.next())

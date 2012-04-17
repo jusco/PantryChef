@@ -3,7 +3,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.io.*" %>
 <%@ page import="java.util.*" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -61,7 +60,7 @@
 						%>
 						<div style="clear: both;">&nbsp;</div>
 						<div class="entry">
-							<h2 class="title"><a href="#">Dishes You Can Make </a></h2><%
+							<h2 class="title"><a href="#">Last 10 Dishes You Have Made</a></h2><%
 							response.setContentType("text/html");
 							
 							//load driver
@@ -75,60 +74,24 @@
 								//create connection and statement
 								connection = DriverManager.getConnection("jdbc:oracle:thin:@//fling.seas.upenn.edu:1521/cisora","CIS330GB","oW4gD8fW");
 								Statement statement = connection.createStatement();
-								ArrayList<String> pantryIngredients = new ArrayList<String>();
-								String query = "SELECT * FROM Account WHERE username=\'" + username + "\'";
-								ResultSet rs = statement.executeQuery(query);
-								if(rs.next() && (rs.getInt(53)!= 0)){
-									pantryIngredients = new ArrayList<String>();
-									for(int i=0;i<rs.getInt(53);i++){
-										pantryIngredients.add(rs.getString(i+3));
-									}
-								}
-								else{
-									%><h2 class="title"><a href="updatePantry.jsp">No Ingredients Yet!</a></h2><%
-									return;
-								}
-								query= "SELECT named, ingredients from Dish WHERE ingredients LIKE \'%"+ pantryIngredients.get(0) + "%\'";
-								for(int k=1;k<pantryIngredients.size();k++){
-									query = query + " OR ingredients LIKE '%" + pantryIngredients.get(k) + "%'";
-								}
 								
-								rs = statement.executeQuery(query);
-								ArrayList<String> dishIngredients;
-								ArrayList<String> dishIngredientsHad;
+							    String query = "SELECT * FROM madeDish WHERE username=\'" + username + "\' ORDER BY madeAt DESC";
+							    ResultSet rs = statement.executeQuery(query);
 								int count = 0;
-								%><table border="1"><tr><td>Dish</td><td>Ingredients You Have</td><td>Ingredients Missing</td><td>Make?</td></tr><%
-								while(rs.next()) {
-									String [] parse = rs.getString(2).split(",");
-									dishIngredients = new ArrayList<String>(Arrays.asList(parse));
-									dishIngredientsHad = new ArrayList<String>();
-									for(int i=0;i<dishIngredients.size();i++){
-										for(int j =0;j<pantryIngredients.size();j++){
-										if(dishIngredients.get(i).equalsIgnoreCase(pantryIngredients.get(j)))
-											count++;
-											dishIngredientsHad.add(dishIngredients.get(i));
-											dishIngredients.remove(i);
-											break;
-										}
-									}
-
-									if(count>=(dishIngredients.size()*.75)){
-									%><tr><td><%=rs.getString(1)%></td><td><%=dishIngredientsHad.toString()%></td><td><%=dishIngredients.toString()%></td>
-									<td><form action="madeDish.jsp" method="get">
-									    	<div>
-										     <input type="submit" name="make_dish" value="Make" />
-										     <input type="hidden" name="dish" value="<%=rs.getString(1)%>" /></div></form></td></tr><%
-								}
-								}
+								%><table border="1"><tr><td>Dish</td><td>Last Made</td></tr><%
+								while(rs.next() && count < 10) {
+									%><tr><td><%=rs.getString(1)%></td>
+									<td><%=rs.getString(3)%></td></tr><%
+									count++;
+							    }
+								%></table><%
 							} catch (Exception e) {
-								System.out.println("Failed Connection " + e.toString());
+								System.out.println("Failed Connection");
 							} finally {
 								try {
 									connection.close();
 								} catch(Exception e) {}
-							}
-							    %></table>
-							  
+							} %>
 						</div>
 					</div>
 					<div style="clear: both;">&nbsp;</div>
