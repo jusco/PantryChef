@@ -78,7 +78,7 @@
 							    String query = "SELECT * FROM madeDish WHERE username=\'" + username + "\' ORDER BY madeAt DESC";
 							    ResultSet rs = statement.executeQuery(query);
 								int count = 0;
-								%><table border="1"><tr><td>Dish</td><td>Last Made</td></tr><%
+								%><table><tr><td>Dish</td><td>Last Made</td></tr><%
 								while(rs.next() && count < 10) {
 									%><tr><td><%=rs.getString(1)%></td>
 									<td><%=rs.getString(3)%></td></tr><%

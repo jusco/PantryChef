@@ -59,22 +59,18 @@
 						<div style="clear: both;">&nbsp;</div>
 						<div class="entry">
 							<form action="addADishResult.jsp" method="post">
-							    <table width="30%" >
-							    <tr>
-									<th>Dish Name</th>
-									<td><input type="text" name="named"/></td>
-								</tr>
-								<tr>
-									<th>Ingredients Separated By Commas</th>
-									<td><input size="100" "type="text" name="ingredients"/></td>
-								<tr>
-									<th>Cuisine</th>
-									<td><input type="text" name="cuisine"/></td>
-								</tr>
-							    <tr>
-									<td><input type="submit" value="Add"/></td>
-								</tr>
-							   	</table>
+							    <div>Dish Name
+									<input type="text" name="named"/></div><p>
+								<div>
+									Ingredients: <input size="100" "type="text" name="ingredients"/></div><p>
+								<div>
+									Cuisine 
+									<input type="text" name="cuisine"/>
+								
+							    
+									<input type="submit" value="Add"/>
+								</div>
+							   	
 							</form>
 						</div>
 					</div>

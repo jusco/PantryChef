@@ -43,24 +43,18 @@ Account</a></h2>
 </div>
 <div class="entry">
 <form name="form" method="post" action="create.jsp">
-  <table>
-    <tbody>
-      <tr>
-        <td>Username</td>
-        <td><input name="username" type="text" /></td>
-      </tr>
-      <tr>
-        <td>Password:</td>
-        <td><input name="password" type="password" /></td>
-      </tr>
-      <tr>
-        <td>Re-enter password:</td>
-        <td><input name="password2" type="password" /></td>
-        <td><input value="Submit" type="submit" /></td>
-      </tr>
-      <tr><td><a href="login.jsp">Return to Login Page</a></td></tr>
-    </tbody>
-  </table>
+  
+        <div>Username:
+        <input name="username" type="text" /></div>
+         <p>
+        <div>Password:
+        <input name="password" type="password" /></div>
+      <p>
+        <div>Re-enter password:
+        <input name="password2" type="password" />
+        <input value="Submit" type="submit" /></div>
+        <p>
+      <div><a href="login.jsp">Return to Login Page</a></div>
 </form>
 </div>
 </div>

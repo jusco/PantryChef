@@ -98,7 +98,7 @@
 								ArrayList<String> dishIngredientsHad;
 								String had,missing = "";
 								int count = 0;
-								%><table border="1"><tr><td>Dish</td><td>Ingredients You Have</td><td>Ingredients Missing</td><td>Make?</td></tr><%
+								%><table><tr><td>Dish</td><td>Ingredients You Have</td><td>Ingredients Missing</td><td>Make?</td></tr><%
 								while(rs.next()) {
 									String [] parse = rs.getString(2).split(",");
 									dishIngredients = new ArrayList<String>(Arrays.asList(parse));

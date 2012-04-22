@@ -39,6 +39,30 @@ a {
 	color: #0033CC;
 }
 
+table {
+	border-collapse:collapse;
+}
+
+
+th {
+	padding:3px 7px;
+	background-color:#A7C942;
+	border:1px solid black;
+}
+
+tr.alt td 
+{
+color:#000000;
+background-color:#EAF2D3;
+}
+
+table, td {
+	padding:3px 20px;
+	border:1px solid black;
+}
+
+
+
 /*header background*/
 #header-wrapper {
 	background: #ACD7E0;
@@ -115,7 +139,7 @@ a {
 
 #menu li {
 	float: left;
-	border-right: 1px solid #FFBAAD;
+	border-right: 1px solid #008E00;
 }
 #menu a {
 	display: block;

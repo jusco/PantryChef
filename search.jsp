@@ -75,16 +75,34 @@
 								connection = DriverManager.getConnection("jdbc:oracle:thin:@//fling.seas.upenn.edu:1521/cisora","CIS330GB","oW4gD8fW");
 								Statement statement = connection.createStatement();
 								
+							    String query2 = "SELECT COUNT(*) FROM Dish WHERE named LIKE \'%" + s + "%\'";
+							    ResultSet rs2 = statement.executeQuery(query2);
+							    rs2.next();
+							    %><h3><%=rs2.getString(1)%> &nbsp &nbsp match(es) &nbsp &nbsp for &nbsp &nbsp <%="'" + s + "'"%></h3><br><%
+							    		
 							    String query = "SELECT * FROM Dish WHERE named LIKE \'%" + s + "%\'";
 							    ResultSet rs = statement.executeQuery(query);
-							    %><table border="1"><%
+							    
+							    int color=0;
+							    %><table>
+							    <tr><th>Dish</th>
+							    <th>Ingredients</th></tr>
+							    <%
 							    while(rs.next()) {
-							    	%><tr><td><%=rs.getString(1)%></td><%
-							    	%><td><%=rs.getString(4)%></td></tr><%
+							    	if (color==0) {
+							    		%><tr><td><%=rs.getString(1)%></td><%
+							    		%><td><%=rs.getString(4)%></td></tr><%
+							    		color=1;
+							    	}
+							    	else {
+							    		%><tr class="alt"><td><%=rs.getString(1)%></td><%
+							    		%><td><%=rs.getString(4)%></td></tr><%
+							    		color=0;
+							    	}
 							    }
 							    %></table><%
 							} catch (Exception e) {
-								System.out.println("Failed Connection");
+								System.out.println("Failed Connection" + e.toString());
 							} finally {
 								try {
 									connection.close();

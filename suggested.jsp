@@ -79,7 +79,7 @@
 							                      + username + "' AND x.named = z.named AND z.cuisine IS NOT NULL AND z.cuisine = y.cuisine" ;
 							    ResultSet rs = statement.executeQuery(query);
 								int count = 0;
-								%><table border="0"><tr><td>Dish</td><td>Ingredients</td><td>Type of Dish</td></tr><%
+								%><table><tr><td>Dish</td><td>Ingredients</td><td>Type of Dish</td></tr><%
 								while(rs.next()) {
 									%><tr><td><%=rs.getString(1)%></td>
 									<td><%=rs.getString(2)%></td>

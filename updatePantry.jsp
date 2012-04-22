@@ -85,7 +85,7 @@
 							    ResultSet rs = statement.executeQuery(query);
 							    if(rs.next()) {
 							    	int num = rs.getInt(53);
-							    	%><table border="1"><%
+							    	%><table><%
 							    	for(int i = 3; i <= num + 2; i++) {
 								    	%><tr>
 								    	<td><%=rs.getString(i)%></td>

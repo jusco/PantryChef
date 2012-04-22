@@ -45,18 +45,12 @@ show you how</p>
 </div>
 <div class="entry">
 <form name="login" method="post" action="login.jsp">
-  <table>
-    <tbody>
-      <tr>
-        <td>Username</td>
-        <td><input name="username" type="text" /></td>
-        <td>Password:</td>
-        <td><input name="password" type="password" /></td>
-        <td><input value="Submit" type="submit" /></td>
-        <td><a href="create.jsp">Create a login</a></td>
-      </tr>
-    </tbody>
-  </table>
+        Username
+        <input name="username" type="text" />
+        &nbsp Password:
+        <input name="password" type="password" />
+        <input value="Submit" type="submit" /> &nbsp 
+        <a href="create.jsp">Create a login</a>
 </form>
 <%
 String user = request.getParameter("username");
