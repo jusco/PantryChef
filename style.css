@@ -96,7 +96,7 @@ a {
 #menu-wrapper {
 	overflow: hidden;
 	height: 60px;
-	background: url(images/img03.gif) repeat-x left top;
+	background: url(images/img01.gif) repeat-x left top;
 }
 
 #menu {
@@ -134,7 +134,7 @@ a {
 
 /*Remember to change picture*/
 #menu a:hover {
-	background: url(images/img03.gif) repeat-x left top;
+	background: url(images/img01.gif) repeat-x left top;
 	text-decoration: none;
 	color: #FFFFFF;
 }

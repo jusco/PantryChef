@@ -3,7 +3,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.io.*" %>
 <%@ page import="java.util.*" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -75,79 +74,88 @@
 								//create connection and statement
 								connection = DriverManager.getConnection("jdbc:oracle:thin:@//fling.seas.upenn.edu:1521/cisora","CIS330GB","oW4gD8fW");
 								Statement statement = connection.createStatement();
-								ArrayList<String> pantryIngredients = new ArrayList<String>();
-								String query = "SELECT * FROM Account WHERE username=\'" + username + "\'";
-								ResultSet rs = statement.executeQuery(query);
-								if(rs.next() && (rs.getInt(53)!= 0)){
-									pantryIngredients = new ArrayList<String>();
-									for(int i=0;i<rs.getInt(53);i++){
-										pantryIngredients.add(rs.getString(i+3));
-									}
-								}
-								else{
-									%><h2 class="title"><a href="updatePantry.jsp">No Ingredients Yet!</a></h2><%
-									return;
-								}
-								query= "SELECT named, ingredients from Dish WHERE ingredients LIKE \'%"+ pantryIngredients.get(0) + "%\'";
-								for(int k=1;k<pantryIngredients.size();k++){
-									query = query + " OR ingredients LIKE '%" + pantryIngredients.get(k) + "%'";
-								}
 								
-								rs = statement.executeQuery(query);
-								ArrayList<String> dishIngredients;
-								ArrayList<String> dishIngredientsHad;
-								String had,missing = "";
-								int count = 0;
-								%><table border="1"><tr><td>Dish</td><td>Ingredients You Have</td><td>Ingredients Missing</td><td>Make?</td></tr><%
-								while(rs.next()) {
-									String [] parse = rs.getString(2).split(",");
-									dishIngredients = new ArrayList<String>(Arrays.asList(parse));
-									dishIngredientsHad = new ArrayList<String>();
-									had = "";
-									missing = "";
-									for(int i=0;i<dishIngredients.size();i++){
-										for(int j =0;j<pantryIngredients.size();j++){
-										if(dishIngredients.get(i).equalsIgnoreCase(pantryIngredients.get(j)))
-											count++;
-											dishIngredientsHad.add(dishIngredients.get(i));
-											dishIngredients.remove(i);
-											break;
-										}
-									}
-
-									if(count>=(dishIngredients.size()*.75)){
-									 	if(dishIngredientsHad.isEmpty())
-									 		;
-									 	else{
-										had = dishIngredientsHad.get(0) ;
-									for(int i=1;i<dishIngredientsHad.size();i++){
-										had = had + ", " + dishIngredientsHad.get(i);
-									}
-									 	} 
-									 	if(dishIngredients.isEmpty())
-									 		;
-									 	else{
-									    missing = dishIngredients.get(0);
-									for(int i=1;i<dishIngredients.size();i++){
-										missing = missing + ", " + dishIngredients.get(i);
-									}
-										} 
-									%><tr><td><%=rs.getString(1)%></td><td><%=had%></td><td><%=missing%></td>
-									<td><form action="madeDish.jsp" method="get">
+							    String update = "create table temp" + username + " (named varchar2(100), ingredients varchar2(255), numOfIngredients number)";
+							    statement.executeUpdate(update);
+							    String query = "SELECT * FROM Account WHERE username=\'" + username + "\'";
+							    %><h2>gets here</h2><%
+							    ResultSet rs = statement.executeQuery(query);
+							    if(rs.next()) {
+							    	ArrayList<String> pantryIngredients = new ArrayList<String>();
+							    	int num = rs.getInt(53);
+							    	%><%=num%><%
+							    	for(int i = 3; i <= num + 2; i++) {
+							    		pantryIngredients.add(rs.getString(i));
+								    	update = "INSERT INTO temp" + username + " select d.named, d.ingredients, d.numOfIngredients from Dish d where d.ingredients LIKE \'%" + rs.getString(i) + ",%\' OR d.ingredients LIKE \'%" + rs.getString(i) + "\'";
+							    		statement.addBatch(update);
+							    	}
+							    	statement.executeBatch();
+							    	query = "SELECT named, count(*) AS matches, numOfIngredients, ingredients FROM temp" + username + " GROUP BY named, numOfIngredients, ingredients";
+							    	ResultSet dishes = statement.executeQuery(query);
+							    	%><table border="1"><tr><td>Dish</td><td>Ingredients You Have</td><td>Ingredients Missing</td><td>Make?</td></tr><%
+							    	while(dishes.next()) {
+							    		if(((double)(dishes.getInt(2)))/dishes.getInt(3) >= .5) {
+							    			%><tr>
+								    		<td><%=dishes.getString(1)%></td><%
+								    		String ingredients = dishes.getString(4);
+								    		String have = "";
+								    		String miss = "";
+								    		int lastIndex = ingredients.indexOf(",");
+								    		int parsed = 0;
+								    		while(parsed < dishes.getInt(3)) {
+								    			String dishIngr = "";
+								    			if(lastIndex != -1) {
+								    				dishIngr = ingredients.substring(0, lastIndex);
+								    			}
+								    			else {
+								    				dishIngr = ingredients;
+								    			}
+								    			
+									    		for(int i = 0; i < pantryIngredients.size(); i++) {
+									    			String pantryIngr = pantryIngredients.get(i);
+									    			if(pantryIngr.equalsIgnoreCase(dishIngr)) {
+									    				have = have + dishIngr + ",";
+									    			}
+								    			}
+									    		if(!(have.contains(dishIngr))) {
+									    			miss = miss + dishIngr + ",";
+									    		}
+									    		if(lastIndex != -1) {
+									    			ingredients = ingredients.substring(lastIndex + 1);
+									    			lastIndex = ingredients.indexOf(",");
+									    		}
+									    		parsed++;
+								    		}
+								    		if(!(have.equals(""))) {
+								    			have = have.substring(0, have.length() - 1);
+								    		}
+								    		if(!(miss.equals(""))) {
+								    			miss = miss.substring(0, miss.length() - 1);	
+								    		}
+								    		%><td><%=have%></td>
+								    		<td><%=miss%></td>
+								    		<td>
+								    		<form action="madeDish.jsp" method="get">
 									    	<div>
-										     <input type="submit" name="make_dish" value="Make" />
-										     <input type="hidden" name="dish" value="<%=rs.getString(1)%>" /></div></form></td></tr><%
-								}
-								}
+										        <input type="submit" name="make_dish" value="Make" />
+										        <input type="hidden" name="dish" value="<%=dishes.getString(1)%>" />
+										    </div>
+										    </form>	
+								    		</td>
+								    		</tr><%
+							    		}
+							    	}
+							    	%></table><%
+							    	update = "drop table temp" + username;
+								    statement.executeUpdate(update);
+							    }
 							} catch (Exception e) {
-								System.out.println("Failed Connection " + e.toString());
+								System.out.println("Failed Connection");
 							} finally {
 								try {
 									connection.close();
 								} catch(Exception e) {}
-							}
-							    %></table>
-							  
+							} %>
 						</div>
 					</div>
 					<div style="clear: both;">&nbsp;</div>

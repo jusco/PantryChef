@@ -82,10 +82,10 @@ Account</a></h2>
 			System.out.println("Error loading driver: " + cnfe);
 		}
 		Connection connection = null;
-		Pattern p = Pattern.compile("^[A-Za-z0-9_-]{6,15}$");
+		Pattern p = Pattern.compile("^[A-Za-z0-9_-]{4,15}$");
 		Matcher m = p.matcher(user);
 		if(!m.find()){
-			%><p>Username must contain alphanumeric characters (no spaces) and must be between 6 and 15 characters long.</p><%
+			%><p>Username must contain alphanumeric characters (no spaces) and must be between 4 and 15 characters long.</p><%
 			return ; 
 		}
 		p = Pattern.compile("^[A-Za-z0-9_-]{6,15}$");
