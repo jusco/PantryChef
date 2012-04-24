@@ -12,6 +12,7 @@
 <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Coda:400,800" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <div id="menu-wrapper">
@@ -40,12 +41,12 @@
 		<div id="page-bgtop">
 			<div id="page-bgbtm">
 				<div id="content">
-					<div class="post">
+					<div class="post" style="padding-left: 200px;">
 						<%
 						String username = (String)(session.getAttribute("username"));
 						if(username == null) {
-							%><h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
-							<div>
+							%><div class="entry" style= "padding-right: 20px;">
+							<h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
 								<form action="login.jsp">
 								<div>
 									<input type="submit" value="Login Here" />
@@ -55,17 +56,11 @@
 							return;
 						} 
 						%>
-						<h2 class="title"><a href="#">Update Pantry</a></h2>
 						<div style="clear: both;">&nbsp;</div>
-						<div class="entry">
-							<div id="search">
-								<form method="post" action="addIngredient.jsp">
-								<div>
-									<input type="text" name="ingredient" id="search-text" value="" />
-									<input type="submit" value="Add" />
-								</div>
-								</form>
-							</div>
+						
+						<div class="entry" style="clear: both;">
+						<h2 class="title"><a href="#">Update Pantry</a></h2>
+						
 							<%
 							response.setContentType("text/html");
 							
@@ -83,36 +78,84 @@
 								
 							    String query = "SELECT * FROM Account WHERE username=\'" + username + "\'";
 							    ResultSet rs = statement.executeQuery(query);
+							    int color = 0;
 							    if(rs.next()) {
 							    	int num = rs.getInt(53);
-							    	%><table><%
+							    	%><table id="update" border="1" ><%
 							    	for(int i = 3; i <= num + 2; i++) {
-								    	%><tr>
-								    	<td><%=rs.getString(i)%></td>
-								    	<td>
-								    	<form action="deleteIngredient.jsp" method="post">
-								    	<div>
-									        <input type="submit" name="delete_ingredient" value="Delete" />
-									        <input type="hidden" name="inum" value="<%=i%>" />
-									    </div>
-									    </form>	
-								    	</td>
-								    	</tr><%	
+							    		if (rs.getString(i)==null) {continue;}
+							    		char[] temp=rs.getString(i).toCharArray();
+							    		temp[0] = Character.toUpperCase(temp[0]);
+							    		String temp2 = new String(temp);
+							    		if (color==0) {
+								    		%><tr >
+									    	<td><%=temp2%></td>
+									    	<td>
+									    	<form action="deleteIngredient.jsp" method="post">
+									    	<div>
+										        <input type="submit" name="delete_ingredient" value="Delete" />
+										        <input type="hidden" name="inum" value="<%=i%>" />
+										    </div>
+										    </form>	
+									    	</td>
+									    	</tr><%
+									    	color=1;
+								    	}
+								    	else {
+								    		%><tr class="alt">
+									    	<td ><%=temp2%></td>
+									    	<td >
+									    	<form action="deleteIngredient.jsp" method="post">
+									    	<div>
+										        <input type="submit" name="delete_ingredient" value="Delete" />
+										        <input type="hidden" name="inum" value="<%=i%>" />
+										    </div>
+										    </form>	
+									    	</td>
+									    	</tr><%
+									    	color=0;
+								    	}
 							    	}
 							    	%></table><%
 							    }
 							} catch (Exception e) {
-								System.out.println("Failed Connection");
+								System.out.println("Failed Connection " + e.getMessage());
 							} finally {
 								try {
 									connection.close();
 								} catch(Exception e) {}
 							} %>
+							<div align="right">
+								<form method="post" action="addIngredient.jsp">
+								<div>
+									<input type="text" name="ingredient" id="search-text" value="" />
+									<input type="submit" value="Add" />
+								</div>
+								</form>
+							</div>
 						</div>
 					</div>
 					<div style="clear: both;">&nbsp;</div>
 				</div>
 				<!-- end #content -->
+				<div id="sidebar">
+					<ul>
+						<li>
+							<h2>Pantry Chef</h2>
+							<p>Find Dishes That You Can Make <br>with the Ingredients in Your Pantry.</br></p>
+						</li>
+						<li>
+							<h2>Tables</h2>
+							<ul>
+								<li><a href="homepage.jsp">Dishes That You Can Make</a></li>
+								<li><a href="last10User.jsp">Last 10 Dishes You Have Made</a></li>
+								<li><a href="last10Everyone.jsp">Last 10 Dishes Made by Users</a></li>
+								<li><a href="suggested.jsp">Suggested Dishes</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- end #sidebar -->
 				<div style="clear: both;">&nbsp;</div>
 			</div>
 		</div>

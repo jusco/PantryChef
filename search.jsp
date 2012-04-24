@@ -12,6 +12,7 @@
 <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Coda:400,800" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <div id="menu-wrapper">
@@ -44,8 +45,8 @@
 						<%
 						String username = (String)(session.getAttribute("username"));
 						if(username == null) {
-							%><h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
-							<div>
+							%><div class="entry" style= "padding-right: 20px;">
+							<h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
 								<form action="login.jsp">
 								<div>
 									<input type="submit" value="Login Here" />
@@ -55,11 +56,16 @@
 							return;
 						} 
 						%>
-						<h2 class="title"><a href="#">Search Result </a></h2>
+						
 						<div style="clear: both;">&nbsp;</div>
-						<div class="entry">
+						<div class="entry" style="clear: both; top: -50px; left: 150px; position: relative;">
+						<h2 class="title"><a href="#">Search Result </a></h2>
 							<%
 							String s = request.getParameter("s");
+							if (s=="")
+							{
+								%><h3>Please specify a dish. <br>Below is every available dish</h3><%
+							}
 							response.setContentType("text/html");
 							PrintWriter write = response.getWriter();
 							
@@ -83,36 +89,50 @@
 							    String query = "SELECT * FROM Dish WHERE named LIKE \'%" + s + "%\'";
 							    ResultSet rs = statement.executeQuery(query);
 							    
-							    int color=0;
-							    %><table>
-							    <tr><th>Dish</th>
-							    <th>Ingredients</th></tr>
+							    
+							    %><table width="96%">
 							    <%
+							    String temp;
 							    while(rs.next()) {
-							    	if (color==0) {
-							    		%><tr><td><%=rs.getString(1)%></td><%
-							    		%><td><%=rs.getString(4)%></td></tr><%
-							    		color=1;
-							    	}
-							    	else {
-							    		%><tr class="alt"><td><%=rs.getString(1)%></td><%
-							    		%><td><%=rs.getString(4)%></td></tr><%
-							    		color=0;
-							    	}
+							    	%><tr><td style="background-image: url('images/img06.gif'); background-repeat: no-repeat;" vertical-align="middle"><h4><%=rs.getString(1)%></h4><%
+							    				if(rs.getString(4)==null)
+									    			temp = "";
+									    		else
+									    			temp = rs.getString(4);
+							    		%>Ingredients: <%=temp%></td><td align="center" style="background-image: url('images/img06.gif'); background-repeat: no-repeat;" vertical-align="middle"><img src="images/<%=rs.getString(1)%>.jpg" align = "middle" border= "1px"/></td></tr><%
+							    		
+							    	
 							    }
 							    %></table><%
 							} catch (Exception e) {
 								System.out.println("Failed Connection" + e.toString());
 							} finally {
-								try {
-									connection.close();
-								} catch(Exception e) {}
+								try {connection.close();} 
+								catch(Exception e) {}
 							} %>
 						</div>
 					</div>
 					<div style="clear: both;">&nbsp;</div>
 				</div>
 				<!-- end #content -->
+								<div id="sidebar">
+					<ul>
+						<li>
+							<h2>Pantry Chef</h2>
+							<p>Find Dishes That You Can Make <br>with the Ingredients in Your Pantry.</br></p>
+						</li>
+						<li>
+							<h2>Tables</h2>
+							<ul>
+								<li><a href="homepage.jsp">Dishes That You Can Make</a></li>
+								<li><a href="last10User.jsp">Last 10 Dishes You Have Made</a></li>
+								<li><a href="last10Everyone.jsp">Last 10 Dishes Made by Users</a></li>
+								<li><a href="suggested.jsp">Suggested Dishes</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- end #sidebar -->
 				<div style="clear: both;">&nbsp;</div>
 			</div>
 		</div>

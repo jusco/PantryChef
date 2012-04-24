@@ -12,6 +12,7 @@
 <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Coda:400,800" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <div id="menu-wrapper">
@@ -40,10 +41,10 @@
 		<div id="page-bgtop">
 			<div id="page-bgbtm">
 				<div id="content">
-					<div class="post">
+					<div class="post" style="padding-left:200px;">
 						
 						<div style="clear: both;">&nbsp;</div>
-						<div class="entry">
+						<div class="entry" style="padding-left:20px;">
 							<%
 							String named = request.getParameter("named");
 							String ingredients = request.getParameter("ingredients");
@@ -74,10 +75,14 @@
 							    if(!(rs.next())) {
 								    String update = "INSERT INTO Dish (named,ingredients,cuisine,numOfIngredients) VALUES (\'" + named + "\',\'" + ingredients + "\',\'" + cuisine + "\'," + numOfIngredients + ")";
 									statement.executeUpdate(update);
-									%><h2 class="title"><a href="#">Dish Added to Database!</a></h2><%
+									%><div style="clear: both; left: 150px; position: relative;">
+									<h2 class="title"><a href="#">Dish Added to Database!</a></h2>
+									</div><%
 							    }
 								else {
-								    %><h2 class="title"><a href="#">Dish With This Name Already Exists!</a></h2><%
+									%><div style="clear: both; left: 0px; position: relative;">
+								    <h2 class="title"><a href="#">Dish With This Name Already Exists!</a></h2>
+								    </div><%
 								}
 							} catch (Exception e) {
 								System.out.println("Failed Connection");
@@ -86,18 +91,37 @@
 									connection.close();
 								} catch(Exception e) {}
 							} %>
-						</div>
-						<div>
-							<form action="addADish.jsp">
 							<div>
+							<form action="addADish.jsp">
+							<div style="clear: both; left: 150px; position: relative;">
 								<input type="submit" value="Return to Add a Dish Page" />
 							</div>
 							</form>
 						</div>
+						</div>
+						
 					</div>
 					<div style="clear: both;">&nbsp;</div>
 				</div>
 				<!-- end #content -->
+				<div id="sidebar">
+					<ul>
+						<li>
+							<h2>Pantry Chef</h2>
+							<p>Find Dishes That You Can Make <br>with the Ingredients in Your Pantry.</br></p>
+						</li>
+						<li>
+							<h2>Tables</h2>
+							<ul>
+								<li><a href="homepage.jsp">Dishes That You Can Make</a></li>
+								<li><a href="last10User.jsp">Last 10 Dishes You Have Made</a></li>
+								<li><a href="last10Everyone.jsp">Last 10 Dishes Made by Users</a></li>
+								<li><a href="suggested.jsp">Suggested Dishes</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- end #sidebar -->
 				<div style="clear: both;">&nbsp;</div>
 			</div>
 		</div>

@@ -18,6 +18,7 @@
  rel="stylesheet" type="text/css" />
   <link href="style.css" rel="stylesheet"
  type="text/css" media="screen" />
+<link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <!-- <div id="header-wrapper"> <div id="header"> <div id="logo"> <h1><a href="#">blah </a></h1> <p>Blah<a href="#">blah</a></p> </div> </div> </div>-->
@@ -35,13 +36,12 @@ Chef</b></a></li>
 <div id="page-bgbtm">
 <div id="content">
 <div class="post">
-<h2 class="title"><a href="#">Create an
-Account</a></h2>
+
 <div style="clear: both;">&nbsp;</div>
 <div class="entry">
+<h2 class="title"><a href="#">Create an
+Account</a></h2>
 <p>Enter your login information:</p>
-</div>
-<div class="entry">
 <form name="form" method="post" action="create.jsp">
   
         <div>Username:
@@ -56,8 +56,7 @@ Account</a></h2>
         <p>
       <div><a href="login.jsp">Return to Login Page</a></div>
 </form>
-</div>
-</div>
+
 <%
 							
 	String user,pass,pass2 = null;
@@ -79,7 +78,7 @@ Account</a></h2>
 		Pattern p = Pattern.compile("^[A-Za-z0-9_-]{4,15}$");
 		Matcher m = p.matcher(user);
 		if(!m.find()){
-			%><p>Username must contain alphanumeric characters (no spaces) and must be between 4 and 15 characters long.</p><%
+			%><p><b>Username must contain alphanumeric characters (no spaces) and must be between 4 and 15 characters long.</b></p><%
 			return ; 
 		}
 		p = Pattern.compile("^[A-Za-z0-9_-]{6,15}$");
@@ -107,7 +106,7 @@ Account</a></h2>
 		   response.sendRedirect("login.jsp");
 			} catch (Exception e) {
 				System.out.println("Failed Connection");
-				%><p>Username is already taken.</p><% 
+				%><p><b>Username is already taken.</b></p><% 
 			} finally {
 		try {
 			connection.close();
@@ -117,23 +116,11 @@ Account</a></h2>
 	
 	
 		%>
+	</div>
+	</div>
 <div style="clear: both;">&nbsp;</div>
 </div>
 <!-- end #content -->
-<div id="sidebar">
-<ul>
-  <li>
-    <h2></h2>
-    <p></p>
-  </li>
-  <li>
-    <h2></h2>
-    <ul>
-    </ul>
-  </li>
-</ul>
-</div>
-<!-- end #sidebar -->
 <div style="clear: both;">&nbsp;</div>
 </div>
 </div>

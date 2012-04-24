@@ -12,6 +12,7 @@
 <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Coda:400,800" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <div id="menu-wrapper">
@@ -44,8 +45,8 @@
 						<%
 						String username = (String)(session.getAttribute("username"));
 						if(username == null) {
-							%><h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
-							<div>
+							%><div class="entry" style= "padding-right: 20px;">
+							<h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
 								<form action="login.jsp">
 								<div>
 									<input type="submit" value="Login Here" />
@@ -55,20 +56,21 @@
 							return;
 						}
 						%>
-						<h2 class="title"><a href="#">Add a Dish </a></h2>
 						<div style="clear: both;">&nbsp;</div>
-						<div class="entry">
-							<form action="addADishResult.jsp" method="post">
-							    <div>Dish Name
+						<div class="entry" style="clear: both; left: 150px; position: relative;">
+						<form action="addADishResult.jsp" method="post">
+						<h2 class="title"><a href="#">Add a Dish </a></h2>
+							    <div>Dish Name:
 									<input type="text" name="named"/></div><p>
 								<div>
-									Ingredients: <input size="100" "type="text" name="ingredients"/></div><p>
+									Ingredients: <input size="60" "type="text" name="ingredients"/></div><p>
+									<br>e.g. "lettuce,tomatoes,meat,..."
 								<div>
-									Cuisine 
+									Cuisine:
 									<input type="text" name="cuisine"/>
 								
 							    
-									<input type="submit" value="Add"/>
+									<br><br></br><input type="submit" value="Add"/></br></br>
 								</div>
 							   	
 							</form>
@@ -77,6 +79,24 @@
 					<div style="clear: both;">&nbsp;</div>
 				</div>
 				<!-- end #content -->
+				<div id="sidebar">
+					<ul>
+						<li>
+							<h2>Pantry Chef</h2>
+							<p>Find Dishes That You Can Make <br>with the Ingredients in Your Pantry.</br></p>
+						</li>
+						<li>
+							<h2>Tables</h2>
+							<ul>
+								<li><a href="homepage.jsp">Dishes That You Can Make</a></li>
+								<li><a href="last10User.jsp">Last 10 Dishes You Have Made</a></li>
+								<li><a href="last10Everyone.jsp">Last 10 Dishes Made by Users</a></li>
+								<li><a href="suggested.jsp">Suggested Dishes</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- end #sidebar -->
 				<div style="clear: both;">&nbsp;</div>
 			</div>
 		</div>

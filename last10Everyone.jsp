@@ -13,6 +13,7 @@
 <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Coda:400,800" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <div id="menu-wrapper">
@@ -47,8 +48,8 @@
 						<%
 						String username = (String)(session.getAttribute("username"));
 						if(username == null) {
-							%><h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
-							<div>
+							%><div class="entry" style= "padding-right: 20px;">
+							<h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
 								<form action="login.jsp">
 								<div>
 									<input type="submit" value="Login Here" />
@@ -59,7 +60,7 @@
 						} 
 						%>
 						<div style="clear: both;">&nbsp;</div>
-						<div class="entry">
+						<div class="entry" style="clear: both; left: 150px; position: relative;">
 							<h2 class="title"><a href="#">Last 10 Dishes Made By Users</a></h2><%
 							response.setContentType("text/html");
 							
@@ -78,12 +79,12 @@
 							    String query = "SELECT * FROM madeDish ORDER BY madeAt DESC";
 							    ResultSet rs = statement.executeQuery(query);
 								int count = 0;
-								%><table><tr><td>Dish</td><td>User</td><td>Last Made</td></tr><%
+								int color = 0;
+								%><table border="1" width="96%"><%
 								while(rs.next() && count < 10) {
-									%><tr><td><%=rs.getString(1)%></td>
-									<td><%=rs.getString(2)%></td>
-									<td><%=rs.getString(3)%></td></tr><%
-									count++;
+							    		%><tr><td style="background-image: url('images/img06.gif'); background-repeat: no-repeat;" vertical-align="middle"><h4><%=rs.getString(1)%></h4>User: <%=rs.getString(2)%><br /> Last Made: <%=rs.getString(3)%></td>
+										<td align="center" style="background-image: url('images/img06.gif'); background-repeat: no-repeat;" vertical-align="middle"><img src="images/<%=rs.getString(1)%>.jpg" align = "top" border= "1px"/></td></tr><%
+										count++;
 							    }
 								%></table><%
 							} catch (Exception e) {
@@ -102,7 +103,7 @@
 					<ul>
 						<li>
 							<h2>Pantry Chef</h2>
-							<p>Find Dishes That You Can Make with the Ingredients in Your Pantry.</p>
+							<p>Find Dishes That You Can Make <br>with the Ingredients in Your Pantry.</br></p>
 						</li>
 						<li>
 							<h2>Tables</h2>

@@ -14,6 +14,7 @@
 <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Coda:400,800" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <div id="menu-wrapper">
@@ -33,11 +34,11 @@
 		</form>
 	</div>
 	</div>
-	
+
 	<!-- end #menu -->
 </div>
-	
-							
+
+
 <div id="wrapper">
 	<!-- end #header -->
 	<div id="page">
@@ -48,8 +49,8 @@
 						<%
 						String username = (String)(session.getAttribute("username"));
 						if(username == null) {
-							%><h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
-							<div>
+							%><div class="entry" style= "padding-right: 20px;">
+							<h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
 								<form action="login.jsp">
 								<div>
 									<input type="submit" value="Login Here" />
@@ -59,11 +60,11 @@
 							return;
 						} 
 						%>
-						<div style="clear: both;">&nbsp;</div>
-						<div class="entry">
+						<div style="clear: both">&nbsp;</div>
+						<div class="entry" style="clear: both; left: 150px; position: relative;">
 							<h2 class="title"><a href="#">Dishes You Can Make </a></h2><%
 							response.setContentType("text/html");
-							
+
 							//load driver
 							try { 
 								Class.forName("oracle.jdbc.driver.OracleDriver"); 
@@ -85,58 +86,71 @@
 									}
 								}
 								else{
-									%><h2 class="title"><a href="updatePantry.jsp">No Ingredients Yet!</a></h2><%
+									%><h3 class="title"><a href="updatePantry.jsp">Click to update your Pantry</a></h3><%
 									return;
 								}
 								query= "SELECT named, ingredients from Dish WHERE ingredients LIKE \'%"+ pantryIngredients.get(0) + "%\'";
 								for(int k=1;k<pantryIngredients.size();k++){
 									query = query + " OR ingredients LIKE '%" + pantryIngredients.get(k) + "%'";
 								}
-								
+
 								rs = statement.executeQuery(query);
 								ArrayList<String> dishIngredients;
 								ArrayList<String> dishIngredientsHad;
 								String had,missing = "";
 								int count = 0;
-								%><table><tr><td>Dish</td><td>Ingredients You Have</td><td>Ingredients Missing</td><td>Make?</td></tr><%
+								int color = 0;
+								int dishingredsize = 0;
+								%><table border="1" width="96%"><%
 								while(rs.next()) {
+									count =0;
 									String [] parse = rs.getString(2).split(",");
 									dishIngredients = new ArrayList<String>(Arrays.asList(parse));
 									dishIngredientsHad = new ArrayList<String>();
 									had = "";
 									missing = "";
+									dishingredsize = dishIngredients.size();
 									for(int i=0;i<dishIngredients.size();i++){
 										for(int j =0;j<pantryIngredients.size();j++){
-										if(dishIngredients.get(i).equalsIgnoreCase(pantryIngredients.get(j)))
+										if(pantryIngredients.get(j)==null)
+											continue;
+										if(dishIngredients.get(i).contains(pantryIngredients.get(j))){
+											
 											count++;
-											dishIngredientsHad.add(dishIngredients.get(i));
+											dishIngredientsHad.add(pantryIngredients.get(j));
 											dishIngredients.remove(i);
 											break;
 										}
 									}
+									}
 
-									if(count>=(dishIngredients.size()*.75)){
+									if(count>=(dishingredsize*.5)){
 									 	if(dishIngredientsHad.isEmpty())
 									 		;
 									 	else{
-										had = dishIngredientsHad.get(0) ;
-									for(int i=1;i<dishIngredientsHad.size();i++){
-										had = had + ", " + dishIngredientsHad.get(i);
-									}
+											had = dishIngredientsHad.get(0) ;
+											for(int i=1;i<dishIngredientsHad.size();i++){
+												had = had + ", " + dishIngredientsHad.get(i);
+											}
 									 	} 
 									 	if(dishIngredients.isEmpty())
 									 		;
 									 	else{
-									    missing = dishIngredients.get(0);
-									for(int i=1;i<dishIngredients.size();i++){
-										missing = missing + ", " + dishIngredients.get(i);
-									}
+									    	missing = dishIngredients.get(0);
+											for(int i=1;i<dishIngredients.size();i++){
+												missing = missing + ", " + dishIngredients.get(i);
+											}				
 										} 
-									%><tr><td><%=rs.getString(1)%></td><td><%=had%></td><td><%=missing%></td>
-									<td><form action="madeDish.jsp" method="get">
+									 	
+								    		%><tr><td style="background-image: url('images/img06.gif'); background-repeat: no-repeat;" vertical-align="middle"><h4><%=rs.getString(1)%></h4>Ingredients You Have: <%=had%><br /> Ingredients Missing: 
+								    		<%=missing%></td><td align="center" style="background-image: url('images/img06.gif'); background-repeat: no-repeat;" vertical-align="middle"><img src="images/<%=rs.getString(1)%>.jpg" align = "top" border= "1px"/> <br />
+								    		<form action="madeDish.jsp" method="get">
 									    	<div>
 										     <input type="submit" name="make_dish" value="Make" />
 										     <input type="hidden" name="dish" value="<%=rs.getString(1)%>" /></div></form></td></tr><%
+								    		color=1;
+								    	
+								    	
 								}
 								}
 							} catch (Exception e) {
@@ -147,7 +161,7 @@
 								} catch(Exception e) {}
 							}
 							    %></table>
-							  
+
 						</div>
 					</div>
 					<div style="clear: both;">&nbsp;</div>
@@ -157,7 +171,7 @@
 					<ul>
 						<li>
 							<h2>Pantry Chef</h2>
-							<p>Find Dishes That You Can Make with the Ingredients in Your Pantry.</p>
+							<p>Find Dishes That You Can Make <br>with the Ingredients in Your Pantry.</br></p>
 						</li>
 						<li>
 							<h2>Tables</h2>

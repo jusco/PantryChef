@@ -17,6 +17,7 @@
  rel="stylesheet" type="text/css" />
   <link href="style.css" rel="stylesheet"
  type="text/css" media="screen" />
+ <link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <!-- <div id="header-wrapper"> <div id="header"> <div id="logo"> <h1><a href="#">blah </a></h1> <p>Blah<a href="#">blah</a></p> </div> </div> </div>-->
@@ -34,14 +35,13 @@ Chef</b></a></li>
 <div id="page-bgbtm">
 <div id="content">
 <div class="post">
-<h2 class="title"><a href="#"><%=session.getAttribute("username")%> Left The Kitchen, Care to Return?</a></h2>
+
 <div style="clear: both;">&nbsp;</div>
-<div class="entry">
+<div class="entry" style= "padding-right: 20px;">
+<h2 class="title"><a href="#"><%=session.getAttribute("username")%> Left The Kitchen, Care to Return?</a></h2>
 <p>This is the age old problem we plan to address. Instead of
 ordering out, why don't you just use what you have? Don't worry, we'll
-show you how</p>
-</div>
-<div class="entry">
+show you how.</p>
 <form name="login" method="post" action="login.jsp">
         Username
         <input name="username" type="text" />

@@ -18,6 +18,7 @@
  rel="stylesheet" type="text/css" />
   <link href="style.css" rel="stylesheet"
  type="text/css" media="screen" />
+ <link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <!-- <div id="header-wrapper"> <div id="header"> <div id="logo"> <h1><a href="#">blah </a></h1> <p>Blah<a href="#">blah</a></p> </div> </div> </div>-->
@@ -29,23 +30,27 @@ Chef</b></a></li>
 </ul>
 </div>
 <!-- end #menu --></div>
+<div style="float: left; position: relative; padding: 25px 0px 0px 0px; left: 40px; width: 250px; margin: 0px;">
+<img src="images/homecooking.jpg" alt="homecooking" width="304" height="228" border= "4px blue"; />
+</div>
 <div id="wrapper"><!-- end #header -->
 <div id="page">
 <div id="page-bgtop">
 <div id="page-bgbtm">
 <div id="content">
 <div class="post">
+
+
+<div style="clear: both;">&nbsp;</div>
+<div class="entry" style= "padding-right: 20px;">
 <h2 class="title"><a href="#">Full Pantry,
 but Nothing to Eat. </a></h2>
-<div style="clear: both;">&nbsp;</div>
-<div class="entry">
 <p>This is the age old problem we plan to address. Instead of
 ordering out, why don't you just use what you have? Don't worry, we'll
-show you how</p>
-</div>
-<div class="entry">
+show you how.</p>
+
 <form name="login" method="post" action="login.jsp">
-        Username
+        Username:
         <input name="username" type="text" />
         &nbsp Password:
         <input name="password" type="password" />
@@ -82,7 +87,7 @@ try {
     ResultSet rs = statement.executeQuery(query);
    
     if(!rs.next())
-    	%> Incorrect Password <%
+    	%> <br><br><b>Incorrect Password! </b><%
     else{
     	session.setAttribute("username", user);	
     	response.sendRedirect("homepage.jsp");
@@ -99,20 +104,7 @@ try {
 <div style="clear: both;">&nbsp;</div>
 </div>
 <!-- end #content -->
-<div id="sidebar">
-<ul>
-  <li>
-    <h2></h2>
-    <p></p>
-  </li>
-  <li>
-    <h2></h2>
-    <ul>
-    </ul>
-  </li>
-</ul>
-</div>
-<!-- end #sidebar -->
+
 <div style="clear: both;">&nbsp;</div>
 </div>
 </div>

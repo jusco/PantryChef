@@ -12,6 +12,7 @@
 <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Coda:400,800" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <div id="menu-wrapper">
@@ -41,10 +42,9 @@
 			<div id="page-bgbtm">
 				<div id="content">
 					<div class="post">
-						<h2 class="title"><a href="#">Ingredient Removed from Pantry!</a></h2>
-						
 						<div style="clear: both;">&nbsp;</div>
 						<div class="entry">
+						<h2 class="title"><a href="#">Ingredient Removed from Pantry!</a></h2>
 							<div>
 								<form action="updatePantry.jsp">
 								<div>

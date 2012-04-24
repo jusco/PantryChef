@@ -12,6 +12,7 @@
 <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Coda:400,800" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <div id="menu-wrapper">
@@ -85,14 +86,15 @@
 									connection.close();
 								} catch(Exception e) {}
 							} %>
-						</div>
-						<div>
+							<div>
 							<form action="updatePantry.jsp">
 							<div>
 								<input type="submit" value="Make More Updates to Your Pantry" />
 							</div>
 							</form>
 						</div>
+						</div>
+					
 					</div>
 					<div style="clear: both;">&nbsp;</div>
 				</div>

@@ -13,6 +13,7 @@
 <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Coda:400,800" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel='shortcut icon' href='http://www.bfeedme.com/wp-content/uploads/2006/04/Cook%20Chef%20Hat%20Spoons.gif' type='image/x-icon'/ >
 </head>
 <body>
 <div id="menu-wrapper">
@@ -43,12 +44,12 @@
 		<div id="page-bgtop">
 			<div id="page-bgbtm">
 				<div id="content">
-					<div class="post">
+					<div class="post" style="padding-left: 200px;">
 						<%
 						String username = (String)(session.getAttribute("username"));
 						if(username == null) {
-							%><h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
-							<div>
+							%><div class="entry" style= "padding-right: 20px;">
+							<h2 class="title"><a href="#">You Are Not Logged In!</a></h2>
 								<form action="login.jsp">
 								<div>
 									<input type="submit" value="Login Here" />
@@ -79,13 +80,24 @@
 							                      + username + "' AND x.named = z.named AND z.cuisine IS NOT NULL AND z.cuisine = y.cuisine" ;
 							    ResultSet rs = statement.executeQuery(query);
 								int count = 0;
-								%><table><tr><td>Dish</td><td>Ingredients</td><td>Type of Dish</td></tr><%
-								while(rs.next()) {
-									%><tr><td><%=rs.getString(1)%></td>
-									<td><%=rs.getString(2)%></td>
-									<td><%=rs.getString(3)%></td></tr><%
+								
+								String temp,temp2 = "";
+								%><table width="96%"><%
+								while(rs.next() && (count<26)) {
+									if(rs.getString(2)==null)
+						    			temp = "";
+						    		else
+						    			temp = rs.getString(2);
+									if(rs.getString(3)==null) {temp2 = "";}
+						    		else {temp2 = rs.getString(3);}
+									
+							    		%><tr><td style="background-image: url('images/img06.gif'); background-repeat: no-repeat;" vertical-align="middle"><h4><%=rs.getString(1)%></h4>Ingredients: <%=temp%><br /> Type of Dish:<%=temp2%></td>
+							    		<td align="center" style="background-image: url('images/img06.gif'); background-repeat: no-repeat;" vertical-align="middle"><img src="images/<%=rs.getString(1)%>.jpg" align = "middle" border= "1px"/></td></tr><%
+										count++;
 							    }
-								%></table><%
+								%></table>
+								<a href="suggestedfull.jsp">See More Results...</a>
+								<%
 							} catch (Exception e) {
 								System.out.println("Failed Connection");
 							} finally {

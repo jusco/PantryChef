@@ -2,9 +2,35 @@ body {
 	margin: 0;
 	padding: 0;
 	background: #FFFFFF;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
+	font-family: Calibri, Helvetica, sans-serif;
+	font-size: 16px;
 	color: #3B3B3B;
+	background-image:url('images/pantrybackground_1.jpg');
+	background-repeat:repeat-y;
+	background-size: 100%;
+}
+
+INPUT { 
+	background-color: #FFFF81;
+	border-color: efefef;
+	color: black;
+	font-family: calibri, verdana, ms sans serif;
+	font-weight: normal;
+	font-size: 12pt;
+	border-radius: 7px; 
+	-moz-border-radius: 7px; 
+	-webkit-border-radius: 7px; 
+	border: 1px solid #354EF0;
+}
+
+.input:hover {
+    border: 1px solid #f00;
+    background: #ff6;
+}
+
+.button:hover {
+    border: 1px solid #f00;
+    background: #eef;
 }
 
 h1, h2, h3 {
@@ -12,7 +38,7 @@ h1, h2, h3 {
 	padding: 0px;
 	letter-spacing: -2px;
 	text-transform: uppercase;
-	font-family: 'Coda', cursive;
+	font-family: calibri, verdana, ms sans serif;
 	font-weight: normal;
 	color: #3B3B3B;
 }
@@ -26,6 +52,7 @@ h2 {
 }
 
 h3 {
+	
 	font-size: 1.6em;
 }
 
@@ -38,6 +65,39 @@ a {
 	text-decoration: none;
 	color: #0033CC;
 }
+/*
+#normal table {
+	border-collapse:collapse;
+	width:96%;
+}
+
+#normal table
+{
+border: 1px solid black;
+}
+
+#normal td{
+border: 0px;
+}
+
+#normal th
+{
+height:140px;
+} 
+
+#normal tr
+{
+height:140px;
+} 
+
+#normal td
+{
+text-align:left;
+padding:3px;
+background: url(images/img06.gif);
+background-repeat:no-repeat;
+}
+*/
 
 table {
 	border-collapse:collapse;
@@ -52,16 +112,14 @@ th {
 
 tr.alt td 
 {
-color:#000000;
-background-color:#EAF2D3;
+	color:#000000;
+	background-color:#EAF2D3;
 }
 
 table, td {
 	padding:3px 20px;
 	border:1px solid black;
 }
-
-
 
 /*header background*/
 #header-wrapper {
@@ -149,8 +207,8 @@ table, td {
 	text-decoration: none;
 	text-align: center;
 	text-transform: uppercase;
-	font-family: 'Coda', cursive;
-	font-size: 12px;
+	font-family: Calibri, cursive;
+	font-size: 13px;
 	font-weight: normal;
 	color: #3B3B3B;
 	border: none;
@@ -164,16 +222,27 @@ table, td {
 }
 
 #page {
+	
 	overflow: hidden;
-	width: 1000px;
 	margin: 0px auto;
 	padding: 30px 0px;
+	padding-right: 50px;
+}
+
+#page-bgtop {
+	padding-right: 50px;
+}
+
+#page-bgbtm {
+	padding-right: 50px;
 }
 
 .post-bgtop {
+	width: 1000px;
 }
 
 .post-bgbtm {
+	width: 1000px;
 }
 
 #content {
@@ -186,6 +255,7 @@ table, td {
 
 .post {
 	margin-bottom: 15px;
+	
 }
 
 .post .title {
@@ -195,9 +265,11 @@ table, td {
 }
 
 .post .entry {
-	padding: 0px 0px 20px 0px;
+	background-color:white;
+	padding: 0px 0px 20px 20px;
 	padding-bottom: 20px;
 	text-align: justify;
+	border: 3px #00248E solid;
 }
 
 .links {
@@ -209,6 +281,7 @@ table, td {
 }
 
 #sidebar {
+	background: #FFFF81;
 	float: left;
 	width: 250px;
 	margin: 0px;
@@ -216,11 +289,14 @@ table, td {
 	color: #787878;
 	position: absolute;
 	left: 20px;
+	border-right: 3px coral solid;
 }
 
 #sidebar ul {
 	margin: 0;
 	padding: 0;
+	padding-left: 5px;
+	padding-right: 5px;
 	list-style: none;
 }
 
